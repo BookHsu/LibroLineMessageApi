@@ -63,6 +63,7 @@
     <Compile Include="LineReceivedObject\LineErrorResponse.cs" />
     <Compile Include="LineReceivedObject\LineEvents.cs" />
     <Compile Include="LineReceivedObject\LineMessage.cs" />
+    <Compile Include="LineReceivedObject\LineParams.cs" />
     <Compile Include="LineReceivedObject\LinePostBack.cs" />
     <Compile Include="LineReceivedObject\LineReceivedMsg.cs" />
     <Compile Include="LineReceivedObject\LineSource.cs" />

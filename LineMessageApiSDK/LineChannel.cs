@@ -39,6 +39,42 @@ namespace LineMessageApiSDK
         /// <summary>channelAccessToken</summary>
         public string channelAccessToken { get; set; }
 
+        /// <summary>
+        /// 離開對話或群組
+        /// </summary>
+        /// <param name="sourceId">欲離開的對話或群組ID</param>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public bool Leave_Room_Or_Group(string sourceId, SourceType type)
+        {
+            if (type == SourceType.user)
+            {
+                throw new NotSupportedException("無法使用 SourceType = User");
+            }
+            else
+            {
+                return MessageApi.Leave_Room_Group(this.channelAccessToken, sourceId, type);
+            }
+        }
+        /// <summary>
+        /// 離開對話或群組
+        /// </summary>
+        /// <param name="sourceId">欲離開的對話或群組ID</param>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public Task<bool> Leave_Room_Or_GroupAsync(string sourceId, SourceType type)
+        {
+            if (type == SourceType.user)
+            {
+                throw new NotSupportedException("無法使用 SourceType = User");
+            }
+            else
+            {
+                return MessageApi.Leave_Room_GroupAsync(this.channelAccessToken, sourceId, type);
+            }
+
+        }
+
         /// <summary>取得使用者檔案</summary>
         /// <param name="userid"></param>
         /// <returns></returns>
@@ -64,6 +100,37 @@ namespace LineMessageApiSDK
                 oModel.Add(MessageApi.GetUserProfile(this.channelAccessToken, userid));
             }
             return oModel;
+        }
+        /// <summary>
+        /// 取得群組內指定使用者資料
+        /// 
+        /// </summary>
+        /// <param name="userid">指定使用者Id</param>
+        ///<param name="GroupidOrRoomId">群組或對話ID</param>
+        ///<param name="type">群組或對話</param>
+        /// <returns></returns>
+        public UserProfile Get_Group_UserProfile(string userid, string GroupidOrRoomId, SourceType type)
+        {
+            if (type == SourceType.user)
+            {
+                throw new NotSupportedException("無法使用Source = User");
+            }
+            return MessageApi.Get_Group_UserProfile(this.channelAccessToken, userid, GroupidOrRoomId, type);
+        }
+        /// <summary>
+        /// 取得群組內指定使用者資料
+        /// </summary>
+        /// <param name="userid">指定使用者Id</param>
+        ///<param name="GroupidOrRoomId">群組或對話ID</param>
+        ///<param name="type">群組或對話</param>
+        /// <returns></returns>
+        public Task<UserProfile> Get_Group_UserProfileAsync(string userid, string GroupidOrRoomId, SourceType type)
+        {
+            if (type == SourceType.user)
+            {
+                throw new NotSupportedException("無法使用Source = User");
+            }
+            return MessageApi.Get_Group_UserProfileAsync(this.channelAccessToken, userid, GroupidOrRoomId, type);
         }
 
         /// <summary>取得大量使用者檔案</summary>
@@ -92,9 +159,9 @@ namespace LineMessageApiSDK
         /// <summary>取得使用者上傳的檔案</summary>
         /// <param name="message_id"></param>
         /// <returns></returns>
-        public  Task<byte[]> Get_User_Upload_To_BotAsync(string message_id)
+        public Task<byte[]> Get_User_Upload_To_BotAsync(string message_id)
         {
-            return  MessageApi.Get_User_Upload_DataAsync(this.channelAccessToken, message_id);
+            return MessageApi.Get_User_Upload_DataAsync(this.channelAccessToken, message_id);
         }
 
 

@@ -37,5 +37,22 @@
 
         /// <summary>Template</summary>
         public string uri { get; set; }
+
+        /// <summary>Datetime Picker</summary>
+        [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+        public DateTimePickerType mode { get; set; }
+
+        /// <summary>
+        /// 日期或時間的初始值
+        /// </summary>
+        public string initial { get; set; }
+        /// <summary>
+        /// 日期或時間的最大值
+        /// </summary>
+        public string max { get; set; }
+        /// <summary>
+        /// 日期或時間的最小值
+        /// </summary>
+        public string min { get; set; }
     }
 }

@@ -85,6 +85,50 @@ namespace LineMessageApiSDK.Method
                 client.Dispose();
             }
         }
+        /// <summary>
+        /// 取得群組或對話內指定成員的使用者檔案
+        /// </summary>
+        /// <param name="channelAccessToken"></param>
+        /// <param name="userId"></param>
+        /// <param name="groupId"></param>
+        /// <returns></returns>
+        internal static UserProfile Get_Group_UserProfile(string channelAccessToken, string userId, string groupId, SourceType type)
+        {
+            HttpClient client = GetClientDefault(channelAccessToken);
+            try
+            {
+
+                string strUrl = string.Format("https://api.line.me/v2/bot/{0}/{1}/member/{2}", type.ToString(), groupId, userId);
+                var result = client.GetStringAsync(strUrl).Result;
+                return JsonConvert.DeserializeObject<UserProfile>(result);
+            }
+            finally
+            {
+                client.Dispose();
+            }
+        }
+        /// <summary>
+        /// 取得群組內指定成員的使用者檔案
+        /// </summary>
+        /// <param name="channelAccessToken"></param>
+        /// <param name="userId"></param>
+        /// <param name="groupId"></param>
+        /// <returns></returns>
+        internal async static Task<UserProfile> Get_Group_UserProfileAsync(string channelAccessToken, string userId, string groupId, SourceType type)
+        {
+            HttpClient client = GetClientDefault(channelAccessToken);
+            try
+            {
+
+                string strUrl = string.Format("https://api.line.me/v2/bot/{0}/{1}/member/{2}", type.ToString(), groupId, userId);
+                var result = await client.GetStringAsync(strUrl);
+                return JsonConvert.DeserializeObject<UserProfile>(result);
+            }
+            finally
+            {
+                client.Dispose();
+            }
+        }
 
 
         /// <summary>離開群組或對話</summary>
@@ -92,14 +136,14 @@ namespace LineMessageApiSDK.Method
         /// <param name="id"></param>
         /// <param name="type"></param>
         /// <returns></returns>
-        internal static bool Leave_Room_Group(string ChannelAccessToken, string id, LeaveType type)
+        internal static bool Leave_Room_Group(string ChannelAccessToken, string id, SourceType type)
         {
             string strUrl = string.Format("https://api.line.me/v2/bot/{0}/{1}/leave", type.ToString(), id);
             bool flag = false;
             HttpClient client = GetClientDefault(ChannelAccessToken);
             try
             {
-                var result = client.GetAsync(strUrl).Result;
+                var result = client.PostAsync(strUrl, new StringContent("")).Result;
                 flag = result.IsSuccessStatusCode;
             }
             finally
@@ -114,14 +158,14 @@ namespace LineMessageApiSDK.Method
         /// <param name="id"></param>
         /// <param name="type"></param>
         /// <returns></returns>
-        internal static async Task<bool> Leave_Room_GroupAsync(string ChannelAccessToken, string id, LeaveType type)
+        internal static async Task<bool> Leave_Room_GroupAsync(string ChannelAccessToken, string id, SourceType type)
         {
             string strUrl = string.Format("https://api.line.me/v2/bot/{0}/{1}/leave", type.ToString(), id);
             bool flag = false;
             HttpClient client = GetClientDefault(ChannelAccessToken);
             try
             {
-                var result = await client.GetAsync(strUrl);
+                var result = await client.PostAsync(strUrl, new StringContent(""));
                 flag = result.IsSuccessStatusCode;
             }
             finally

@@ -10,7 +10,9 @@
         message,
 
         /// <summary>點擊後傳送postback event</summary>
-        postback
+        postback,
+        /// <summary>dateTimePucker Action</summary>
+        datetimepicker
     }
 
     /// <summary></summary>
@@ -51,15 +53,6 @@
         beacon,
     }
 
-    /// <summary>離開對談種類</summary>
-    public enum LeaveType
-    {
-        /// <summary>群組</summary>
-        group,
-
-        /// <summary>多人對話</summary>
-        room
-    }
     /// <summary>訊息類型</summary>
     public enum MessageType
     {
@@ -151,5 +144,23 @@
 
         /// <summary></summary>
         carousel
+    }
+    /// <summary>
+     /// 日期ACTION使用 templtetype應為Button
+     /// </summary>
+    public enum DateTimePickerType
+    {
+        /// <summary>
+        /// date mode
+        /// </summary>
+        date,
+        /// <summary>
+        /// time mode
+        /// </summary>
+        time,
+        /// <summary>
+        /// datetime mode
+        /// </summary>
+        datetime
     }
 }
